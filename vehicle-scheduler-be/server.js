@@ -19,19 +19,20 @@ app.get("/", async (req, res) => {
     console.error("Logging failed:", err);
     res.status(500).send("Internal Server Error");
   }
-});
+}); // Home route 
+
 
 app.listen(3000, async () => {
   console.log("Server Started");
 
   try {
     await log(
-      "backend",
+      "backend", // Stack
       "info",
       "service",
       "Server Started Successfully"
     );
   } catch (err) {
-    console.error("Startup log failed:", err);
+    console.error("Startup log failed:", err); // Log the error but don't crash the server
   }
 });
