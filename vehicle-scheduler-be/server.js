@@ -6,24 +6,32 @@ const app = express();
 app.use(express.json());
 
 app.get("/", async (req, res) => {
+  try {
+    await log(
+      "backend",
+      "info",
+      "route",
+      "Home route accessed"
+    );
 
-  await log(
-    "backend",
-    "info",
-    "route",
-    "Home route accessed"
-  );
-
-  res.send("Server Running");
+    res.send("Server Running");
+  } catch (err) {
+    console.error("Logging failed:", err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
-app.listen(3000, () => {
+app.listen(3000, async () => {
   console.log("Server Started");
 
-  log(
-    "backend",
-    "info",
-    "service",
-    "Server Started Successfully"
-  );
+  try {
+    await log(
+      "backend",
+      "info",
+      "service",
+      "Server Started Successfully"
+    );
+  } catch (err) {
+    console.error("Startup log failed:", err);
+  }
 });
